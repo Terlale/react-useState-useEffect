@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function App() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios.get(`https://northwind.vercel.app/api/orders`).then((res) => {
+      setData(res.data);
+    });
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <h1>Ship Names:</h1>
+      
+      {data.map((item) => (
+          <p>{item.shipName}</p>
+        ))}
+      
+      </div>
   );
 }
 
